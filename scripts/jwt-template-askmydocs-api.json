@@ -1,0 +1,7 @@
+{
+  "name": "askmydocs-api",
+  "claims": {
+    "aud": "https://set-mole-985.clerk.accounts.dev"
+  },
+  "lifetime": 3600
+}

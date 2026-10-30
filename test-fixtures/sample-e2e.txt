@@ -1,0 +1,4 @@
+﻿AskMyDocs E2E fixture
+
+Upload this file on the Documents page to verify ingest and chat.
+Ask: What is this document about?

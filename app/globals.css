@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --background: #020617;
+  --foreground: #e2e8f0;
+  --surface: #0b1220;
+  --surface-elevated: #0f172a;
+  --border: rgba(51, 65, 85, 0.55);
+  --accent: #22d3ee;
+  --accent-muted: rgba(34, 211, 238, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes stream-cursor-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.stream-cursor {
+  animation: stream-cursor-blink 1s ease-in-out infinite;
+}

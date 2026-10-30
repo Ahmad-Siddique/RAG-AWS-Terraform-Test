@@ -4,6 +4,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AppFooter } from "@/components/AppFooter";
 import { Header } from "@/components/Header";
+import {
+  getClerkPublishableKey,
+  missingClerkPublishableKeyMessage,
+} from "@/lib/clerk-env";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,13 +25,10 @@ export const metadata: Metadata = {
   description: "Chat with your documents",
 };
 
-const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const publishableKey = getClerkPublishableKey();
   if (!publishableKey) {
-    throw new Error(
-      "Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY. Copy keys from Clerk dashboard into frontend/.env.local and restart npm run dev.",
-    );
+    throw new Error(missingClerkPublishableKeyMessage);
   }
 
   return (

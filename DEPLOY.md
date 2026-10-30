@@ -110,6 +110,24 @@ powershell -File ./scripts/sync-s3-website.ps1 -BucketName (terraform output -ra
 
 If `out/` is missing, the script explains that SSR via `npm run start` (or Vercel) is the default path.
 
-## 5. Destroy / change stacks
+## 6. Vercel deployment
+
+1. **Root directory:** `askmydocs/frontend` (if the repo root is the course folder).
+2. **Environment variables** (Production **and** Preview — builds use Preview env on PRs):
+
+   | Variable | Required |
+   |----------|----------|
+   | `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes (or set `CLERK_PUBLISHABLE_KEY` — build copies it to `NEXT_PUBLIC_*`) |
+   | `CLERK_SECRET_KEY` | Yes |
+   | `CLERK_ENCRYPTION_KEY` | Yes (same value as local) |
+   | `NEXT_PUBLIC_API_URL` | Yes (no trailing slash) |
+   | `NEXT_PUBLIC_CLERK_JWT_TEMPLATE` | Yes (`askmydocs-api`) |
+
+3. **Clerk Dashboard:** add `https://your-project.vercel.app` to allowed origins / redirect URLs.
+4. **AWS CORS:** add the same Vercel origin to `cors_allow_origins` in `terraform/04_documents`, then `terraform apply`.
+
+Redeploy after changing env vars (Vercel does not rebuild automatically for env-only changes unless you redeploy).
+
+## 7. Destroy / change stacks
 
 Destroy `06_frontend` independently when you no longer need the public bucket. Keep `04_documents` CORS in sync when you remove an origin.
